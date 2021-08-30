@@ -110,25 +110,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		//時間測る
 		now_time = GetNowCount();
-		game_now_time =  now_time - game_start_time; 
+		game_now_time =  now_time - game_start_time;
 
 		//キー入力処理
 		int key_trg, key_info;
 		key_trg = key_info = key_old = 0;
 
-		if (CheckHitKey(KEY_INPUT_LEFT)) { key_info |= 0x01; } // 0x01とかはenumとかconstにして定義すると名前を付けられてわかりやすい(例：KEY_CODE_LEFT)
+		if (CheckHitKey(KEY_INPUT_LEFT)) { key_info |= KEY_CODE_LEFT; }
 
-		if (CheckHitKey(KEY_INPUT_RIGHT)) { key_info |= 0x02; }
+		if (CheckHitKey(KEY_INPUT_RIGHT)) { key_info |= KEY_CODE_RIGHT; }
 
-		if (CheckHitKey(KEY_INPUT_UP)) { key_info |= 0x04; }
+		if (CheckHitKey(KEY_INPUT_UP)) { key_info |= KEY_CODE_UP; }
 
-		if (CheckHitKey(KEY_INPUT_DOWN)) { key_info |= 0x08; }
+		if (CheckHitKey(KEY_INPUT_DOWN)) { key_info |= KEY_CODE_DOWN; }
 
-		if (CheckHitKey(KEY_INPUT_SPACE)) { key_info |= 0x10; }
+		if (CheckHitKey(KEY_INPUT_SPACE)) { key_info |= KEY_CODE_SPACE; }
 
-		if (CheckHitKey(KEY_INPUT_Z)) { key_info |= 0x20; }
+		if (CheckHitKey(KEY_INPUT_Z)) { key_info |= KEY_CODE_Z; }
 
-		if (CheckHitKey(KEY_INPUT_ESCAPE)) { key_info |= 0x40; }
+		if (CheckHitKey(KEY_INPUT_ESCAPE)) { key_info |= KEY_CODE_ESCAPE; }
 
 		key_trg = (key_info ^ key_old) & key_info;
 		key_old = key_info;
