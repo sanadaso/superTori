@@ -158,7 +158,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 		//トルネフが入力で左右に移動する
-		if (key_info & 0x02) { //migi
+		if (key_info & KEY_CODE_RIGHT) { // 右キーが入力されている
 			tornev.direction = true;
 			//debug_flag = true;
 			if (tornev.x < 710) {
@@ -168,7 +168,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				bg.x -= tornev.speed;
 			}
 		}
-		if (key_info & 0x01) { //hidari
+		if (key_info & KEY_CODE_LEFT) { // 左キーが入力されている
 			tornev.direction = false;
 			//debug_flag = false;
 			if (tornev.x > 150) {
@@ -187,7 +187,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 		//トルネフジャンプ処理
-		if (key_trg & 0x10 && tornev.y >= 300)
+		if (key_trg & KEY_CODE_SPACE && tornev.y >= 300)
 		{ //ジャンプボタンを押す
 			debug_flag = true;
 			tornev.jump_flag_1 = true;
