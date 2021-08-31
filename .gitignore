@@ -177,3 +177,10 @@ FakesAssemblies/
 
 # User Settings
 Log.txt
+
+
+
+# 2021/08 数年ぶりに再開した。上記までの記述内容がわからないので改めて指定
+.gitignore
+.vs
+picture/tornev*
