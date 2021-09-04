@@ -1,10 +1,7 @@
 ﻿#include "DxLib.h"
 #include "main.h"
 #include "CollisionDetection.h"
-#include "IngameObject.h"
-#include "ItemObject.h"
 #include "KeyInput.h"
-#include "Ui.h"
 
 // プログラムは WinMain から始まります
 
