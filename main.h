@@ -9,42 +9,6 @@ struct Map {
 	const int max_y;
 };
 
-class Tornev : public IngameObject
-{
-public:
-	int y_prev;
-	int y_temp;
-	int jump_y;
-	bool jump_flag_1;
-	bool jump_flag_2;
-	bool is_dead;
-
-	void Tornev::set(int x, int y, int speed, bool direction, int y_prev, int y_temp, int jump_y, bool jump_flag_1, bool jump_flag_2, bool is_dead)
-	{
-		this->x = x;
-		this->y = y;
-		this->speed = speed;
-		this->direction = direction;
-
-		this->y_prev = y_prev;
-		this->y_temp = y_temp;
-		this->jump_y = jump_y;
-		this->jump_flag_1 = jump_flag_1;
-		this->jump_flag_2 = jump_flag_2;
-		this->is_dead = is_dead;
-	}
-
-	void Tornev::MoveAdvance()
-	{
-		setX(this->x + this->speed);
-	}
-
-	void Tornev::MoveBackwards()
-	{
-		setX(this->x - this->speed);
-	}
-};
-
 class Item
 {
 public:
