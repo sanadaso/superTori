@@ -2,12 +2,6 @@
 #define __MAIN_H__
 #pragma once
 
-struct UI
-{
-	int x;
-	int y;
-};
-
 struct Map {
 	const int max_x;
 	const int max_y;
