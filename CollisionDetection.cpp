@@ -9,19 +9,23 @@
 		m_bg = bg;
 	}
 
-	bool CollisionDetection::itemColision(Item item)    //メンバ関数の定義
+
+
+	bool CollisionDetection::itemColision(ItemObject item)    //メンバ関数の定義
 	{
 		m_item = item;
 		if (
-			(m_bg.x + m_item.x + 5 < m_tornev.getX() + 95 && m_bg.y + m_item.y + 95 > m_tornev.getY() + 5) &&
-			(m_bg.x + m_item.x + 90 > m_tornev.getX() + 5 && m_bg.y + m_item.y + 95 > m_tornev.getY() + 5) &&
-			(m_bg.x + m_item.x + 5 < m_tornev.getX() + 95 && m_bg.y + m_item.y + 5 < m_tornev.getY() + 95) &&
-			(m_bg.x + m_item.x + 90 > m_tornev.getX() + 5 && m_bg.y + m_item.y + 5 < m_tornev.getY() + 95)
+			(m_bg.x + m_item.getX() + 5 < m_tornev.getX() + 95 && m_bg.y + m_item.getY() + 95 > m_tornev.getY() + 5) &&
+			(m_bg.x + m_item.getX() + 90 > m_tornev.getX() + 5 && m_bg.y + m_item.getY() + 95 > m_tornev.getY() + 5) &&
+			(m_bg.x + m_item.getX() + 5 < m_tornev.getX() + 95 && m_bg.y + m_item.getY() + 5 < m_tornev.getY() + 95) &&
+			(m_bg.x + m_item.getX() + 90 > m_tornev.getX() + 5 && m_bg.y + m_item.getY() + 5 < m_tornev.getY() + 95)
 			) {
 			return true;
 		}
 		return false;
 	}
+
+
 
 	bool CollisionDetection::enemyColision(Enemy enemy)    //メンバ関数の定義
 	{
@@ -36,6 +40,8 @@
 		}
 		return false;
 	}
+
+
 
 	bool CollisionDetection::tornevAttack(Enemy enemy)    //メンバ関数の定義
 	{

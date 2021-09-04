@@ -9,6 +9,8 @@ protected:
 	bool direction;
 
 public:
+	void IngameObject::moveAdvance();
+	void IngameObject::moveBackwards();
 	void IngameObject::set(int x, int y, int speed, bool direction);
 
 	void IngameObject::setX(int x);

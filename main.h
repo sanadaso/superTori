@@ -9,16 +9,6 @@ struct Map {
 	const int max_y;
 };
 
-class Item
-{
-public:
-	int x;
-	int y;
-	int speed;
-	bool direction;
-	bool flag;
-};
-
 class Enemy
 {
 public:

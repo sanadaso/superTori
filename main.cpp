@@ -2,6 +2,7 @@
 #include "main.h"
 #include "CollisionDetection.h"
 #include "IngameObject.h"
+#include "ItemObject.h"
 #include "KeyInput.h"
 #include "Ui.h"
 
@@ -40,7 +41,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Tornev tornev;
 	tornev.set(150, 300, 5, true, -10, 5, 0, false, false, false);
 	Ui ui = { 0,0 };
-	Item star = { 600, 200, 8, true, true };
+	ItemObject star;
+	star.set(600, 200, 8, true, true);
 	Enemy tokage = { 900, 300, 7, false, false, false, tokage_graph };
 	BGA bg = { 0,0 };
 
@@ -126,7 +128,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 				tornev_right_now = tornev_right_super;
 				tornev_left_now = tornev_left_super;
 			} else if (super_time >= super_max_time) {
-				star.flag = true;
+				star.setFlag(true);
 				super_mode = false;
 				StopSoundMem(super_BGM);
 			}
@@ -163,21 +165,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		//スターの動き
 		CollisionDetection collisionDetection(tornev, bg);
-		if (star.flag == true) {
-			if (star.direction == true) {
-				star.x += star.speed;
-			} else if (star.direction == false) {
-				star.x -= star.speed;
+		if (star.getFlag() == true) {
+			if (star.getDirection() == true) {
+				star.moveAdvance();
+			} else if (star.getDirection() == false) {
+				star.moveBackwards();
 			}
 
-			if (star.x >= 900) {
-				star.direction = false;
-			} else if (star.x <= 600) {
-				star.direction = true;
+			if (star.getX() >= 900) {
+				star.setDirection(false);
+			} else if (star.getX() <= 600) {
+				star.setDirection(true);
 			}
 
 			if (collisionDetection.itemColision(star) == true) {
-				star.flag = false;
+				star.setFlag(false);
 				super_mode = true;
 				super_start_time = GetNowCount();
 				//BGM再生
@@ -249,8 +251,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			DrawGraph(tornev.getX(), tornev.getY(), tornev_left_now, TRUE);
 		}
 
-		if (star.flag == true)
-			DrawGraph(bg.x + star.x, star.y, star_graph, TRUE);
+		if (star.getFlag() == true)
+			DrawGraph(bg.x + star.getX(), star.getY(), star_graph, TRUE);
 		if (tokage.flag == true)
 			DrawGraph(bg.x + tokage.x, tokage.y, tokage_graph, TRUE);
 
