@@ -1,6 +1,7 @@
 ﻿#ifndef __MAIN_H__
 #define __MAIN_H__
 #include "IngameObject.h"
+#include "Ui.h"
 
 #pragma once
 
