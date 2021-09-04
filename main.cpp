@@ -14,11 +14,41 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		return -1;         // エラーが起きたら直ちに終了
 	}
 
+	//画像ロード
+	const int tornev_right_normal = LoadGraph("picture/tornev_r.png");
+	const int tornev_left_normal = LoadGraph("picture/tornev_l.png");
+	const int tornev_right_super = LoadGraph("picture/tornev_r_s.png");
+	const int tornev_left_super = LoadGraph("picture/tornev_l_s.png");
+	const int background_art = LoadGraph("picture/backgroundart.png");
+	const int star_graph = LoadGraph("picture/star.png");
+	const int tokage_graph = LoadGraph("picture/tokage.png");
+	const int chip_0 = LoadGraph("picture/32_0.png");
+	const int chip_1 = LoadGraph("picture/32_1.png");
+	const int chip_2 = LoadGraph("picture/32_2.png");
+	const int chip_3 = LoadGraph("picture/32_3.png");
+	const int chip_debug = LoadGraph("picture/debug_flag.png");
+	const int number_0 = LoadGraph("picture/number_0.png");
+	const int number_1 = LoadGraph("picture/number_1.png");
+	const int number_2 = LoadGraph("picture/number_2.png");
+	const int number_3 = LoadGraph("picture/number_3.png");
+	const int number_4 = LoadGraph("picture/number_4.png");
+	const int number_5 = LoadGraph("picture/number_5.png");
+	const int number_6 = LoadGraph("picture/number_6.png");
+	const int number_7 = LoadGraph("picture/number_7.png");
+	const int number_8 = LoadGraph("picture/number_8.png");
+	const int number_9 = LoadGraph("picture/number_9.png");
+	const int game_over = LoadGraph("picture/game_over.png");
+
+	//BGMロード
+	int normal_bgm = LoadSoundMem("music/game_maoudamashii_4_field08.mp3");
+	int super_BGM = LoadSoundMem("music/bgm_maoudamashii_neorock63.mp3");
+
 	//変数たち
-	Tornev tornev = { 150, 300, 0, 0, -10, 5, true, false, false };
+	Tornev tornev;
+	tornev.set(150, 300, 5, true, -10, 5, 0, false, false, false);
 	UI ui = { 0,0 };
 	Item star = { 600, 200, 8, true, true };
-	Enemy tokage = { 900, 300, 7, false, false, false};
+	Enemy tokage = { 900, 300, 7, false, false, false, tokage_graph };
 	BGA bg = { 0,0 };
 
 	int super_start_time;
@@ -70,34 +100,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//	{ 0,0,0,0,0,0,0,0,0,0,0 }
 	//};
 
-	//画像ロード
-	const int tornev_right_normal = LoadGraph("picture/tornev_r.png");
-	const int tornev_left_normal = LoadGraph("picture/tornev_l.png");
-	const int tornev_right_super = LoadGraph("picture/tornev_r_s.png");
-	const int tornev_left_super = LoadGraph("picture/tornev_l_s.png");
-	const int background_art = LoadGraph("picture/backgroundart.png");
-	const int star_graph = LoadGraph("picture/star.png");
-	const int tokage_graph = LoadGraph("picture/tokage.png");
-	const int chip_0 = LoadGraph("picture/32_0.png");
-	const int chip_1 = LoadGraph("picture/32_1.png");
-	const int chip_2 = LoadGraph("picture/32_2.png");
-	const int chip_3 = LoadGraph("picture/32_3.png");
-	const int chip_debug = LoadGraph("picture/debug_flag.png");
-	const int number_0 = LoadGraph("picture/number_0.png");
-	const int number_1 = LoadGraph("picture/number_1.png");
-	const int number_2 = LoadGraph("picture/number_2.png");
-	const int number_3 = LoadGraph("picture/number_3.png");
-	const int number_4 = LoadGraph("picture/number_4.png");
-	const int number_5 = LoadGraph("picture/number_5.png");
-	const int number_6 = LoadGraph("picture/number_6.png");
-	const int number_7 = LoadGraph("picture/number_7.png");
-	const int number_8 = LoadGraph("picture/number_8.png");
-	const int number_9 = LoadGraph("picture/number_9.png");
-
-	//BGMロード
-	int normal_bgm = LoadSoundMem("music/game_maoudamashii_4_field08.mp3");
-	int super_BGM = LoadSoundMem("music/bgm_maoudamashii_neorock63.mp3");
-
 	//描画先を裏画面に設定
 	SetDrawScreen(DX_SCREEN_BACK);
 
@@ -134,27 +136,20 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		key_old = key_info;
 
 		//トルネフがスーパー状態か否か
-		int tornev_right_now; //右向きトルネフ画像をロードする変数
-		int tornev_left_now; //左向きトルネフ画像をロードする変数
+		int tornev_right_now = tornev_right_normal; //右向きトルネフ画像をロードする変数
+		int tornev_left_now = tornev_left_normal; //左向きトルネフ画像をロードする変数
 
 		if (super_mode == true) {
 			super_time = GetNowCount() - super_start_time;
 			if (super_time < 10000) {
-				tornev.speed = 10;
+				tornev.setSpeed(10);
 				tornev_right_now = tornev_right_super;
 				tornev_left_now = tornev_left_super;
-			}
-			else if (super_time >= super_max_time) {
+			} else if (super_time >= super_max_time) {
 				star.flag = true;
 				super_mode = false;
 				StopSoundMem(super_BGM);
 			}
-
-		}
-		else if (super_mode == false) {
-			tornev_right_now = tornev_right_normal;
-			tornev_left_now = tornev_left_normal;
-
 		}
 
 		//トルネフが入力で左右に移動する
@@ -163,8 +158,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			//debug_flag = true;
 			if (tornev.x < 710) {
 				tornev.x += tornev.speed;
-			}
-			else if (tornev.x >= 710) {
+			} else if (tornev.x >= 710) {
 				bg.x -= tornev.speed;
 			}
 		}
@@ -173,14 +167,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			//debug_flag = false;
 			if (tornev.x > 150) {
 				tornev.x -= tornev.speed;
-			}
-			else if (tornev.x <= 150 && bg.x <= 0) {
+			} else if (tornev.x <= 150 && bg.x <= 0) {
 				int nowspeed = tornev.speed*(-1);
 				if (bg.x <= 0 && bg.x > nowspeed) {
 					bg.x = 0;
 					ui.x = 0;
-				}
-				else {
+				} else {
 					bg.x += tornev.speed;
 				}
 			}
@@ -193,9 +185,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			tornev.jump_flag_1 = true;
 			tornev.y_prev = tornev.y;
 			tornev.y = tornev.y - 15;
-		}
-		else if (tornev.jump_flag_1 == true)
-		{ //ジャンプ中
+		} else if (tornev.jump_flag_1 == true) { //ジャンプ中
 			debug_flag = true;
 			tornev.y_temp = tornev.y;
 			tornev.y += (tornev.y - tornev.y_prev) + 1;
@@ -212,18 +202,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		if (star.flag == true) {
 			if (star.direction == true) {
 				star.x += star.speed;
-			}
-			else if (star.direction == false) {
+			} else if (star.direction == false) {
 				star.x -= star.speed;
 			}
+
 			if (star.x >= 900) {
 				star.direction = false;
-			}
-			else if (star.x <= 600) {
+			} else if (star.x <= 600) {
 				star.direction = true;
 			}
-			if (collisionDetection.aitem(star) == true) {
 
+			if (collisionDetection.itemColision(star) == true) {
 				star.flag = false;
 				super_mode = true;
 				super_start_time = GetNowCount();
@@ -236,17 +225,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//敵の動き
 		if (tornev.x > 450)
 			tokage.flag = true;
-		if (tokage.flag == true) 
+		if (tokage.flag == true)
 			tokage.x -= tokage.speed;
-		if (tokage.dead == false && collisionDetection.tornevAttack(tokage) == true)
+		if (tokage.is_dead == false && collisionDetection.tornevAttack(tokage) == true)
 		{
-			tokage.dead = true;
+			tokage.is_dead = true;
 		}
-		if(tokage.dead == false && collisionDetection.enemi(tokage) == true)
+		if (tokage.is_dead == false && collisionDetection.enemyColision(tokage) == true)
 		{
 			break;
 		}
-		if (tokage.dead == true)
+		if (tokage.is_dead == true)
 		{
 			tokage.y += 2000;
 		}
@@ -285,8 +274,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 		//時間表示
-		//game_now_time (ゲーム始まってからの時間)
-		int time = game_now_time / 1000;
+		int time = game_now_time / 1000; // game_now_time (ゲーム始まってからの時間)
 		for (int i = 0; i < 4; i++)
 		{
 			int n = time % 10;
@@ -334,10 +322,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//トルネフ描画
 		if (tornev.direction == true) {
 			DrawGraph(tornev.x, tornev.y, tornev_right_now, TRUE);
-		}
-		else if (tornev.direction == false) {
+		} else if (tornev.direction == false) {
 			DrawGraph(tornev.x, tornev.y, tornev_left_now, TRUE);
 		}
+
 		if (star.flag == true)
 			DrawGraph(bg.x + star.x, star.y, star_graph, TRUE);
 		if (tokage.flag == true)
@@ -345,8 +333,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		if (debug_flag == true)
 			DrawGraph(ui.x, ui.y, chip_debug, TRUE);
-
-
 
 		ScreenFlip();
 

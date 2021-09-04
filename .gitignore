@@ -184,3 +184,4 @@ Log.txt
 .gitignore
 .vs
 picture/tornev*
+picture/*

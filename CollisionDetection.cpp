@@ -10,7 +10,7 @@
 		m_bg = bg;
 	}
 
-	bool CollisionDetection::aitem(Item item)    //メンバ関数の定義
+	bool CollisionDetection::itemColision(Item item)    //メンバ関数の定義
 	{
 		m_item = item;
 		if (
@@ -24,7 +24,7 @@
 		return false;
 	}
 
-	bool CollisionDetection::enemi(Enemy enemy)    //メンバ関数の定義
+	bool CollisionDetection::enemyColision(Enemy enemy)    //メンバ関数の定義
 	{
 		m_enemy = enemy;
 		if (
