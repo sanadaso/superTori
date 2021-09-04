@@ -1,6 +1,7 @@
 ﻿#include "DxLib.h"
 #include "main.h"
 #include "CollisionDetection.h"
+#include "KeyInput.h"
 
 // プログラムは WinMain から始まります
 
@@ -118,19 +119,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		int key_trg, key_info;
 		key_trg = key_info = key_old = 0;
 
-		if (CheckHitKey(KEY_INPUT_LEFT)) { key_info |= KEY_CODE_LEFT; }
-
-		if (CheckHitKey(KEY_INPUT_RIGHT)) { key_info |= KEY_CODE_RIGHT; }
-
-		if (CheckHitKey(KEY_INPUT_UP)) { key_info |= KEY_CODE_UP; }
-
-		if (CheckHitKey(KEY_INPUT_DOWN)) { key_info |= KEY_CODE_DOWN; }
-
-		if (CheckHitKey(KEY_INPUT_SPACE)) { key_info |= KEY_CODE_SPACE; }
-
-		if (CheckHitKey(KEY_INPUT_Z)) { key_info |= KEY_CODE_Z; }
-
-		if (CheckHitKey(KEY_INPUT_ESCAPE)) { key_info |= KEY_CODE_ESCAPE; }
+		key_info = KeyInput::HitCheck();
 
 		key_trg = (key_info ^ key_old) & key_info;
 		key_old = key_info;
@@ -196,7 +185,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		if (tornev.jump_flag_1 == false)
 			debug_flag = false;
 
-
 		//スターの動き
 		CollisionDetection collisionDetection(tornev, bg);
 		if (star.flag == true) {
@@ -227,11 +215,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			tokage.flag = true;
 		if (tokage.flag == true)
 			tokage.x -= tokage.speed;
-		if (tokage.is_dead == false && collisionDetection.enemyColision(tokage) == true)
-		{
+
+		if (tokage.is_dead == false && super_mode == false && collisionDetection.enemyColision(tokage) == true) {
 			tornev.is_dead = true; // トルネフ死亡フラグオン
 		}
-		if (tokage.is_dead == false && collisionDetection.tornevAttack(tokage) == true)
+
+		if (
+			(tokage.is_dead == false && collisionDetection.tornevAttack(tokage) == true) ||						// トカゲが生きてて、踏んだら
+			(tokage.is_dead == false && super_mode == true && collisionDetection.enemyColision(tokage) == true) // トカゲが生きてて、スーパーモードで、当たったら
+			)
 		{
 			tokage.is_dead = true; // トカゲ死亡フラグオン
 		}
