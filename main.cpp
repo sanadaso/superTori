@@ -2,6 +2,7 @@
 #include "main.h"
 #include "CollisionDetection.h"
 #include "KeyInput.h"
+#include "Ui.h"
 
 // プログラムは WinMain から始まります
 
@@ -28,16 +29,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	const int chip_2 = LoadGraph("picture/32_2.png");
 	const int chip_3 = LoadGraph("picture/32_3.png");
 	const int chip_debug = LoadGraph("picture/debug_flag.png");
-	const int number_0 = LoadGraph("picture/number_0.png");
-	const int number_1 = LoadGraph("picture/number_1.png");
-	const int number_2 = LoadGraph("picture/number_2.png");
-	const int number_3 = LoadGraph("picture/number_3.png");
-	const int number_4 = LoadGraph("picture/number_4.png");
-	const int number_5 = LoadGraph("picture/number_5.png");
-	const int number_6 = LoadGraph("picture/number_6.png");
-	const int number_7 = LoadGraph("picture/number_7.png");
-	const int number_8 = LoadGraph("picture/number_8.png");
-	const int number_9 = LoadGraph("picture/number_9.png");
 	const int game_over = LoadGraph("picture/game_over.png");
 
 	//BGMロード
@@ -47,7 +38,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//変数たち
 	Tornev tornev;
 	tornev.set(150, 300, 5, true, -10, 5, 0, false, false, false);
-	UI ui = { 0,0 };
+	Ui ui = { 0,0 };
 	Item star = { 600, 200, 8, true, true };
 	Enemy tokage = { 900, 300, 7, false, false, false, tokage_graph };
 	BGA bg = { 0,0 };
@@ -265,51 +256,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			}
 		}
 
-		//時間表示
-		int time = game_now_time / 1000; // game_now_time (ゲーム始まってからの時間)
-		for (int i = 0; i < 4; i++)
-		{
-			int n = time % 10;
-			int number_name;
-			switch (n) {
-			case 0:
-				number_name = number_0;
-				break;
-			case 1:
-				number_name = number_1;
-				break;
-			case 2:
-				number_name = number_2;
-				break;
-			case 3:
-				number_name = number_3;
-				break;
-			case 4:
-				number_name = number_4;
-				break;
-			case 5:
-				number_name = number_5;
-				break;
-			case 6:
-				number_name = number_6;
-				break;
-			case 7:
-				number_name = number_7;
-				break;
-			case 8:
-				number_name = number_8;
-				break;
-			case 9:
-				number_name = number_9;
-				break;
-			default:
-				number_name = number_0;
-				break;
-			}
-			DrawGraph(ui.x + 960 - (i*100 + 100), ui.y, number_name, TRUE);
-
-			time /= 10;
-		}
+		// 時間表示
+		ui.TimeDisplay(game_now_time);
 
 		//トルネフ描画
 		if (tornev.direction == true) {
