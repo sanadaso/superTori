@@ -9,18 +9,6 @@ struct Map {
 	const int max_y;
 };
 
-class Enemy
-{
-public:
-	int x;
-	int y;
-	int speed;
-	bool direction;
-	bool flag;
-	bool is_dead;
-	int graph;
-};
-
 struct BGA
 {
 	int x;

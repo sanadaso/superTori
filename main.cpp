@@ -43,7 +43,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Ui ui = { 0,0 };
 	ItemObject star;
 	star.set(600, 200, 8, true, true);
-	Enemy tokage = { 900, 300, 7, false, false, false, tokage_graph };
+	Enemy tokage;
+	tokage.set(900, 300, 7, false, false, false, tokage_graph);
 	BGA bg = { 0,0 };
 
 	int super_start_time;
@@ -190,28 +191,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		//敵の動き
 		if (tornev.getX() > 450)
-			tokage.flag = true;
-		if (tokage.flag == true)
-			tokage.x -= tokage.speed;
+			tokage.setFlag(true);
+		if (tokage.getFlag() == true)
+			tokage.moveBackwards();
 
-		if (tokage.is_dead == false && super_mode == false && collisionDetection.enemyColision(tokage) == true) {
+		if (tokage.getIsDead() == false && super_mode == false && collisionDetection.enemyColision(tokage) == true) {
 			tornev.setIsDead(true); // トルネフ死亡フラグオン
 		}
 		if (
-			(tokage.is_dead == false && collisionDetection.tornevAttack(tokage) == true) ||						// トカゲが生きてて、踏んだら
-			(tokage.is_dead == false && super_mode == true && collisionDetection.enemyColision(tokage) == true) // トカゲが生きてて、スーパーモードで、当たったら
-			)
-		{
-			tokage.is_dead = true; // トカゲ死亡フラグオン
+			(tokage.getIsDead() == false && collisionDetection.tornevAttack(tokage) == true) ||						// トカゲが生きてて、踏んだら
+			(tokage.getIsDead() == false && super_mode == true && collisionDetection.enemyColision(tokage) == true) // トカゲが生きてて、スーパーモードで、当たったら
+			) {
+			tokage.setIsDead(true); // トカゲ死亡フラグオン
 		}
-		if (tokage.is_dead == true)
-		{
-			tokage.y += 2000;
+		if (tokage.getIsDead() == true) {
+			tokage.setY(tokage.getX() + 2000);
 		}
 
 		//BGM
-		if (CheckSoundMem(normal_bgm) != 1 && super_mode == false)
-		{
+		if (CheckSoundMem(normal_bgm) != 1 && super_mode == false) {
 			PlaySoundMem(normal_bgm, DX_PLAYTYPE_LOOP);
 		}
 			
@@ -237,6 +235,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 					chip_name = chip_3;
 					break;
 				}
+
 				DrawGraph(bg.x + (j*chip_side_length), i*chip_side_length, chip_name, TRUE);
 			}
 		}
@@ -253,8 +252,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		if (star.getFlag() == true)
 			DrawGraph(bg.x + star.getX(), star.getY(), star_graph, TRUE);
-		if (tokage.flag == true)
-			DrawGraph(bg.x + tokage.x, tokage.y, tokage_graph, TRUE);
+		if (tokage.getFlag() == true)
+			DrawGraph(bg.x + tokage.getX(), tokage.getY(), tokage_graph, TRUE);
 
 		if (debug_flag == true)
 			DrawGraph(ui.x, ui.y, chip_debug, TRUE);
