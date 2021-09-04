@@ -1,6 +1,7 @@
 ﻿#include "DxLib.h"
 #include "main.h"
 #include "CollisionDetection.h"
+#include "IngameObject.h"
 #include "KeyInput.h"
 #include "Ui.h"
 
@@ -134,43 +135,42 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		//トルネフが入力で左右に移動する
 		if (key_info & KEY_CODE_RIGHT) { // 右キーが入力されている
-			tornev.direction = true;
+			tornev.setDirection(true);
 			//debug_flag = true;
-			if (tornev.x < 710) {
-				tornev.x += tornev.speed;
-			} else if (tornev.x >= 710) {
-				bg.x -= tornev.speed;
+			if (tornev.getX() < 710) {
+				tornev.MoveAdvance();
+			} else {
+				bg.x -= tornev.getSpeed();
 			}
 		}
 		if (key_info & KEY_CODE_LEFT) { // 左キーが入力されている
-			tornev.direction = false;
+			tornev.setDirection(false);
 			//debug_flag = false;
-			if (tornev.x > 150) {
-				tornev.x -= tornev.speed;
-			} else if (tornev.x <= 150 && bg.x <= 0) {
-				int nowspeed = tornev.speed*(-1);
+			if (tornev.getX() > 150) {
+				tornev.MoveBackwards();
+			} else if (tornev.getX() <= 150 && bg.x <= 0) {
+				int nowspeed = tornev.getSpeed()*(-1);
 				if (bg.x <= 0 && bg.x > nowspeed) {
 					bg.x = 0;
 					ui.x = 0;
 				} else {
-					bg.x += tornev.speed;
+					bg.x += tornev.getSpeed();
 				}
 			}
 		}
 
 		//トルネフジャンプ処理
-		if (key_trg & KEY_CODE_SPACE && tornev.y >= 300)
-		{ //ジャンプボタンを押す
+		if (key_trg & KEY_CODE_SPACE && tornev.getY() >= 300) { //ジャンプボタンを押す
 			debug_flag = true;
 			tornev.jump_flag_1 = true;
-			tornev.y_prev = tornev.y;
-			tornev.y = tornev.y - 15;
-		} else if (tornev.jump_flag_1 == true) { //ジャンプ中
+			tornev.y_prev = tornev.getY();
+			tornev.setY(tornev.getY() - 15);
+		} else if (tornev.jump_flag_1 == true) { //ジャンプ中のY方向の動き処理
 			debug_flag = true;
-			tornev.y_temp = tornev.y;
-			tornev.y += (tornev.y - tornev.y_prev) + 1;
+			tornev.y_temp = tornev.getY();
+			tornev.setY(tornev.getY() + (tornev.getY() - tornev.y_prev) + 1);
 			tornev.y_prev = tornev.y_temp;
-			if (tornev.y >= 300)
+			if (tornev.getY() >= 300)
 				tornev.jump_flag_1 = false;
 		}
 		if (tornev.jump_flag_1 == false)
@@ -202,7 +202,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 		//敵の動き
-		if (tornev.x > 450)
+		if (tornev.getX() > 450)
 			tokage.flag = true;
 		if (tokage.flag == true)
 			tokage.x -= tokage.speed;
@@ -260,10 +260,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		ui.TimeDisplay(game_now_time);
 
 		//トルネフ描画
-		if (tornev.direction == true) {
-			DrawGraph(tornev.x, tornev.y, tornev_right_now, TRUE);
-		} else if (tornev.direction == false) {
-			DrawGraph(tornev.x, tornev.y, tornev_left_now, TRUE);
+		if (tornev.getDirection() == true) {
+			DrawGraph(tornev.getX(), tornev.getY(), tornev_right_now, TRUE);
+		} else if (tornev.getDirection() == false) {
+			DrawGraph(tornev.getX(), tornev.getY(), tornev_left_now, TRUE);
 		}
 
 		if (star.flag == true)
