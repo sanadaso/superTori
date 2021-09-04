@@ -158,10 +158,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="KeyInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CollisionDetection.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KeyInput.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="CollisionDetection.h" />
   </ItemGroup>

@@ -14,10 +14,11 @@ private:
 	BGA m_bg;
 	Item m_item;
 	Enemy m_enemy;
+
 public:
 	CollisionDetection::CollisionDetection(Tornev tornev, BGA bg);
-	bool CollisionDetection::aitem(Item item);    //メンバ関数の定義
-	bool CollisionDetection::enemi(Enemy enemy);
+	bool CollisionDetection::itemColision(Item item);    //メンバ関数の定義
+	bool CollisionDetection::enemyColision(Enemy enemy);
 	bool CollisionDetection::tornevAttack(Enemy enemy);
 };
 #endif

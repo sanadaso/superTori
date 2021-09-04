@@ -13,21 +13,57 @@ struct Map {
 	const int max_y;
 };
 
-struct Tornev
+class IngameObject
 {
-	int x; //トルネフのx,y座標
+public:
+	int x;
 	int y;
+	int speed;
+	bool direction;
+
+	void IngameObject::set(int x, int y, int speed, bool direction)
+	{
+		this->x = x;
+		this->y = y;
+		this->speed = speed;
+		this->direction = direction;
+	}
+};
+
+class Tornev : public IngameObject
+{
+public:
 	int y_prev;
 	int y_temp;
 	int jump_y;
-	int speed;
-	bool direction;
 	bool jump_flag_1;
 	bool jump_flag_2;
+	bool is_dead;
+
+	void Tornev::set(int x, int y, int speed, bool direction, int y_prev, int y_temp, int jump_y, bool jump_flag_1, bool jump_flag_2, bool is_dead)
+	{
+		this->x = x;
+		this->y = y;
+		this->speed = speed;
+		this->direction = direction;
+
+		this->y_prev = y_prev;
+		this->y_temp = y_temp;
+		this->jump_y = jump_y;
+		this->jump_flag_1 = jump_flag_1;
+		this->jump_flag_2 = jump_flag_2;
+		this->is_dead = is_dead;
+	}
+
+	void Tornev::setSpeed(int speed)
+	{
+		this->speed = speed;
+	}
 };
 
-struct Item
+class Item
 {
+public:
 	int x;
 	int y;
 	int speed;
@@ -35,14 +71,16 @@ struct Item
 	bool flag;
 };
 
-struct Enemy
+class Enemy
 {
+public:
 	int x;
 	int y;
 	int speed;
 	bool direction;
 	bool flag;
-	bool dead;
+	bool is_dead;
+	int graph;
 };
 
 struct BGA
