@@ -14,10 +14,10 @@
 	{
 		m_item = item;
 		if (
-			(m_bg.x + m_item.x + 5 < m_tornev.x + 95 && m_bg.y + m_item.y + 95 > m_tornev.y + 5) &&
-			(m_bg.x + m_item.x + 90 > m_tornev.x + 5 && m_bg.y + m_item.y + 95 > m_tornev.y + 5) &&
-			(m_bg.x + m_item.x + 5 < m_tornev.x + 95 && m_bg.y + m_item.y + 5 < m_tornev.y + 95) &&
-			(m_bg.x + m_item.x + 90 > m_tornev.x + 5 && m_bg.y + m_item.y + 5 < m_tornev.y + 95)
+			(m_bg.x + m_item.x + 5 < m_tornev.getX() + 95 && m_bg.y + m_item.y + 95 > m_tornev.getY() + 5) &&
+			(m_bg.x + m_item.x + 90 > m_tornev.getX() + 5 && m_bg.y + m_item.y + 95 > m_tornev.getY() + 5) &&
+			(m_bg.x + m_item.x + 5 < m_tornev.getX() + 95 && m_bg.y + m_item.y + 5 < m_tornev.getY() + 95) &&
+			(m_bg.x + m_item.x + 90 > m_tornev.getX() + 5 && m_bg.y + m_item.y + 5 < m_tornev.getY() + 95)
 			) {
 			return true;
 		}
@@ -28,10 +28,10 @@
 	{
 		m_enemy = enemy;
 		if (
-			(m_bg.x + m_enemy.x + 5 < m_tornev.x + 95 && m_bg.y + m_enemy.y + 95 > m_tornev.y + 5) &&
-			(m_bg.x + m_enemy.x + 90 > m_tornev.x + 5 && m_bg.y + m_enemy.y + 95 > m_tornev.y + 5) &&
-			(m_bg.x + m_enemy.x + 5 < m_tornev.x + 95 && m_bg.y + m_enemy.y + 5 < m_tornev.y + 95) &&
-			(m_bg.x + m_enemy.x + 90 > m_tornev.x + 5 && m_bg.y + m_enemy.y + 5 < m_tornev.y + 95)
+			(m_bg.x + m_enemy.x + 5 < m_tornev.getX() + 95 && m_bg.y + m_enemy.y + 95 > m_tornev.getY() + 5) &&
+			(m_bg.x + m_enemy.x + 90 > m_tornev.getX() + 5 && m_bg.y + m_enemy.y + 95 > m_tornev.getY() + 5) &&
+			(m_bg.x + m_enemy.x + 5 < m_tornev.getX() + 95 && m_bg.y + m_enemy.y + 5 < m_tornev.getY() + 95) &&
+			(m_bg.x + m_enemy.x + 90 > m_tornev.getX() + 5 && m_bg.y + m_enemy.y + 5 < m_tornev.getY() + 95)
 			) {
 			return true;
 		}
@@ -42,10 +42,10 @@
 	{
 		m_enemy = enemy;
 		if (
-			(m_bg.x + m_enemy.x + 10 < m_tornev.x + 90 && m_bg.y + m_enemy.y + 95 > m_tornev.y + 90) && //トルネフの右と上
-			(m_bg.x + m_enemy.x + 90 > m_tornev.x + 10 && m_bg.y + m_enemy.y + 95 > m_tornev.y + 90) && //
-			(m_bg.x + m_enemy.x + 10 < m_tornev.x + 90 && m_bg.y + m_enemy.y + 5 < m_tornev.y + 100) && //
-			(m_bg.x + m_enemy.x + 90 > m_tornev.x + 10 && m_bg.y + m_enemy.y + 5 < m_tornev.y + 100)
+			(m_bg.x + m_enemy.x + 10 < m_tornev.getX() + 90 && m_bg.y + m_enemy.y + 95 > m_tornev.getY() + 90) && //トルネフの右と上
+			(m_bg.x + m_enemy.x + 90 > m_tornev.getX() + 10 && m_bg.y + m_enemy.y + 95 > m_tornev.getY() + 90) && //
+			(m_bg.x + m_enemy.x + 10 < m_tornev.getX() + 90 && m_bg.y + m_enemy.y + 5 < m_tornev.getY() + 100) && //
+			(m_bg.x + m_enemy.x + 90 > m_tornev.getX() + 10 && m_bg.y + m_enemy.y + 5 < m_tornev.getY() + 100)
 			) {
 			return true;
 		}

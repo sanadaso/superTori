@@ -1,27 +1,12 @@
 ﻿#ifndef __MAIN_H__
 #define __MAIN_H__
+#include "IngameObject.h"
+
 #pragma once
 
 struct Map {
 	const int max_x;
 	const int max_y;
-};
-
-class IngameObject
-{
-public:
-	int x;
-	int y;
-	int speed;
-	bool direction;
-
-	void IngameObject::set(int x, int y, int speed, bool direction)
-	{
-		this->x = x;
-		this->y = y;
-		this->speed = speed;
-		this->direction = direction;
-	}
 };
 
 class Tornev : public IngameObject
@@ -49,9 +34,14 @@ public:
 		this->is_dead = is_dead;
 	}
 
-	void Tornev::setSpeed(int speed)
+	void Tornev::MoveAdvance()
 	{
-		this->speed = speed;
+		setX(this->x + this->speed);
+	}
+
+	void Tornev::MoveBackwards()
+	{
+		setX(this->x - this->speed);
 	}
 };
 
