@@ -162,6 +162,7 @@
     <ClCompile Include="KeyInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CollisionDetection.cpp" />
+    <ClCompile Include="Tornev.cpp" />
     <ClCompile Include="Ui.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +170,7 @@
     <ClInclude Include="KeyInput.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="CollisionDetection.h" />
+    <ClInclude Include="Tornev.h" />
     <ClInclude Include="Ui.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

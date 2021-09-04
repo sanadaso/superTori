@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string.h>
 #include "main.h"
+#include "Tornev.h"
 
 
 class CollisionDetection

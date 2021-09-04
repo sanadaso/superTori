@@ -1,7 +1,6 @@
 ﻿#include <iostream>
 #include <string.h>
 
-#include "main.h"
 #include "CollisionDetection.h"
 
 	CollisionDetection::CollisionDetection(Tornev tornev, BGA bg)

@@ -96,7 +96,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	//描画先を裏画面に設定
 	SetDrawScreen(DX_SCREEN_BACK);
 
-
 	bool debug_flag = false;
 	int key_old = 0;
 
@@ -133,12 +132,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			}
 		}
 
-		//トルネフが入力で左右に移動する
+		// トルネフが入力で左右に移動する
 		if (key_info & KEY_CODE_RIGHT) { // 右キーが入力されている
 			tornev.setDirection(true);
 			//debug_flag = true;
 			if (tornev.getX() < 710) {
-				tornev.MoveAdvance();
+				tornev.moveAdvance();
 			} else {
 				bg.x -= tornev.getSpeed();
 			}
@@ -147,7 +146,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			tornev.setDirection(false);
 			//debug_flag = false;
 			if (tornev.getX() > 150) {
-				tornev.MoveBackwards();
+				tornev.moveBackwards();
 			} else if (tornev.getX() <= 150 && bg.x <= 0) {
 				int nowspeed = tornev.getSpeed()*(-1);
 				if (bg.x <= 0 && bg.x > nowspeed) {
@@ -159,22 +158,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			}
 		}
 
-		//トルネフジャンプ処理
-		if (key_trg & KEY_CODE_SPACE && tornev.getY() >= 300) { //ジャンプボタンを押す
-			debug_flag = true;
-			tornev.jump_flag_1 = true;
-			tornev.y_prev = tornev.getY();
-			tornev.setY(tornev.getY() - 15);
-		} else if (tornev.jump_flag_1 == true) { //ジャンプ中のY方向の動き処理
-			debug_flag = true;
-			tornev.y_temp = tornev.getY();
-			tornev.setY(tornev.getY() + (tornev.getY() - tornev.y_prev) + 1);
-			tornev.y_prev = tornev.y_temp;
-			if (tornev.getY() >= 300)
-				tornev.jump_flag_1 = false;
-		}
-		if (tornev.jump_flag_1 == false)
-			debug_flag = false;
+		// トルネフジャンプ処理
+		tornev.jump(key_trg);
 
 		//スターの動き
 		CollisionDetection collisionDetection(tornev, bg);
@@ -208,9 +193,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			tokage.x -= tokage.speed;
 
 		if (tokage.is_dead == false && super_mode == false && collisionDetection.enemyColision(tokage) == true) {
-			tornev.is_dead = true; // トルネフ死亡フラグオン
+			tornev.setIsDead(true); // トルネフ死亡フラグオン
 		}
-
 		if (
 			(tokage.is_dead == false && collisionDetection.tornevAttack(tokage) == true) ||						// トカゲが生きてて、踏んだら
 			(tokage.is_dead == false && super_mode == true && collisionDetection.enemyColision(tokage) == true) // トカゲが生きてて、スーパーモードで、当たったら
@@ -229,7 +213,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			PlaySoundMem(normal_bgm, DX_PLAYTYPE_LOOP);
 		}
 			
-
 		//描画する
 		ClearDrawScreen();
 		//DrawGraph(bgx, bgy, backgroundArt, TRUE);
@@ -274,7 +257,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		if (debug_flag == true)
 			DrawGraph(ui.x, ui.y, chip_debug, TRUE);
 
-		if (tornev.is_dead == true)
+		if (tornev.getIsDead() == true)
 			DrawExtendGraph(ui.x+230, ui.y+181, ui.x+730, ui.y+362, game_over, TRUE);
 
 		ScreenFlip();
