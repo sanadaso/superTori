@@ -2,7 +2,7 @@
 
 int KeyInput::HitCheck()
 {
-	int key_info = KEY_CODE_LEFT;
+	int key_info = 0;
 
 	if (CheckHitKey(KEY_INPUT_RIGHT)) { key_info |= KEY_CODE_RIGHT; }
 
