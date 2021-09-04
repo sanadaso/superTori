@@ -7,6 +7,7 @@
 #include "main.h"
 #include "Tornev.h"
 #include "ItemObject.h"
+#include "Enemy.h"
 
 
 class CollisionDetection
