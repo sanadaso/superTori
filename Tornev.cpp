@@ -1,19 +1,5 @@
 #include "Tornev.h"
 
-void Tornev::moveAdvance()
-{
-	this->setX(this->x + this->speed);
-}
-
-
-
-void Tornev::moveBackwards()
-{
-	this->setX(this->x - this->speed);
-}
-
-
-
 void Tornev::jump(int key_trg)
 {
 	if (key_trg & KEY_CODE_SPACE && this->getY() >= 300) { // ジャンプボタンを押す

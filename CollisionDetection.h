@@ -6,6 +6,7 @@
 #include <string.h>
 #include "main.h"
 #include "Tornev.h"
+#include "ItemObject.h"
 
 
 class CollisionDetection
@@ -13,12 +14,12 @@ class CollisionDetection
 private:
 	Tornev m_tornev;
 	BGA m_bg;
-	Item m_item;
+	ItemObject m_item;
 	Enemy m_enemy;
 
 public:
 	CollisionDetection::CollisionDetection(Tornev tornev, BGA bg);
-	bool CollisionDetection::itemColision(Item item);    //メンバ関数の定義
+	bool CollisionDetection::itemColision(ItemObject item);    //メンバ関数の定義
 	bool CollisionDetection::enemyColision(Enemy enemy);
 	bool CollisionDetection::tornevAttack(Enemy enemy);
 };

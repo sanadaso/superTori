@@ -1,5 +1,19 @@
 #include "IngameObject.h"
 
+void IngameObject::moveAdvance()
+{
+	this->setX(this->x + this->speed);
+}
+
+
+
+void IngameObject::moveBackwards()
+{
+	this->setX(this->x - this->speed);
+}
+
+
+
 void IngameObject::set(int x, int y, int speed, bool direction)
 {
 	this->x = x;

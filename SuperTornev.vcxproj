@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="IngameObject.cpp" />
+    <ClCompile Include="ItemObject.cpp" />
     <ClCompile Include="KeyInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CollisionDetection.cpp" />
@@ -167,6 +168,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IngameObject.h" />
+    <ClInclude Include="ItemObject.h" />
     <ClInclude Include="KeyInput.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="CollisionDetection.h" />

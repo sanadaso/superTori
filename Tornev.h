@@ -30,8 +30,5 @@ public:
 	bool Tornev::getJumpFlag2();
 	bool Tornev::getIsDead();
 
-	void Tornev::moveAdvance();
-	void Tornev::moveBackwards();
 	void Tornev::jump(int key_trg);
-
 };
