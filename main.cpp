@@ -227,13 +227,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			tokage.flag = true;
 		if (tokage.flag == true)
 			tokage.x -= tokage.speed;
-		if (tokage.is_dead == false && collisionDetection.tornevAttack(tokage) == true)
-		{
-			tokage.is_dead = true;
-		}
 		if (tokage.is_dead == false && collisionDetection.enemyColision(tokage) == true)
 		{
-			break;
+			tornev.is_dead = true; // トルネフ死亡フラグオン
+		}
+		if (tokage.is_dead == false && collisionDetection.tornevAttack(tokage) == true)
+		{
+			tokage.is_dead = true; // トカゲ死亡フラグオン
 		}
 		if (tokage.is_dead == true)
 		{
@@ -333,6 +333,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		if (debug_flag == true)
 			DrawGraph(ui.x, ui.y, chip_debug, TRUE);
+
+		if (tornev.is_dead == true)
+			DrawExtendGraph(ui.x+230, ui.y+181, ui.x+730, ui.y+362, game_over, TRUE);
 
 		ScreenFlip();
 
