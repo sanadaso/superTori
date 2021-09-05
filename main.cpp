@@ -38,7 +38,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	Ui ui = { 0,0 };
 	ItemObject star;
 	star.set(600, 200, 8, true, star_graph, true);
-	Enemy tokage;
+	Lizard tokage;
 	tokage.set(900, 300, 7, false, tokage_graph, false, false);
 	BGA bg = { 0,0 };
 
@@ -169,19 +169,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 		//敵の動き
-		if (tornev.getX() > 450)
-			tokage.setFlag(true);
+		tokage.Appear(tornev.getX(), 450);
 		if (tokage.getFlag() == true)
 			tokage.moveBackwards();
 
 		if (tokage.getIsDead() == false && tornev.getMode() == false && collisionDetection.enemyColision(tokage) == true) {
-			tornev.setIsDead(true); // トルネフ死亡フラグオン
+			tornev.die(); // トルネフ死亡フラグオン
 		}
 		if (
 			(tokage.getIsDead() == false && collisionDetection.tornevAttack(tokage) == true) ||						// トカゲが生きてて、踏んだら
 			(tokage.getIsDead() == false && tornev.getMode() == true && collisionDetection.enemyColision(tokage) == true) // トカゲが生きてて、スーパーモードで、当たったら
 			) {
-			tokage.setIsDead(true); // トカゲ死亡フラグオン
+			tokage.die(); // トカゲ死亡フラグオン
 		}
 		if (tokage.getIsDead() == true) {
 			tokage.setY(tokage.getX() + 2000);

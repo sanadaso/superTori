@@ -2,6 +2,7 @@
 #define __MAIN_H__
 #include "IngameObject.h"
 #include "Ui.h"
+#include "Lizard.h"
 
 #pragma once
 
