@@ -21,6 +21,7 @@ void Tornev::jump(int key_trg)
 void Tornev::transformSuper(int tornev_super_graph)
 {
 	this->graph = tornev_super_graph;
+	this->mode = TornevMode::Super;
 }
 
 
@@ -28,6 +29,7 @@ void Tornev::transformSuper(int tornev_super_graph)
 void Tornev::transformNormal(int tornev_graph)
 {
 	this->graph = tornev_graph;
+	this->mode = TornevMode::Normal;
 }
 
 
@@ -137,4 +139,11 @@ bool Tornev::getJumpFlag2()
 bool Tornev::getIsDead()
 {
 	return this->is_dead;
+}
+
+
+
+int Tornev::getMode()
+{
+	return this->mode;
 }

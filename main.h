@@ -16,6 +16,12 @@ struct BGA
 	int y;
 };
 
+enum TornevMode
+{
+	Normal,
+	Super
+};
+
 const int KEY_CODE_LEFT   = 0x01;
 const int KEY_CODE_RIGHT  = 0x02;
 const int KEY_CODE_UP     = 0x04;
