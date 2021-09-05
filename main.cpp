@@ -8,16 +8,17 @@
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
 	ChangeWindowMode(TRUE);
-	SetGraphMode(960, 544, 32); //ウィンドウサイズ変更
+	SetGraphMode(960, 544, 32); // ウィンドウサイズ変更
 
-	if (DxLib_Init() == -1)        // ＤＸライブラリ初期化処理
+	if (DxLib_Init() == -1)     // DXライブラリ初期化処理
 	{
-		return -1;         // エラーが起きたら直ちに終了
+		return -1;              // エラーが起きたら直ちに終了
 	}
 
 	//画像ロード
 	const int TORNEV_GRAPH = LoadGraph("picture/tornev_r.png");
-	const int TORNEV_SUPER_GRAPH = LoadGraph("picture/tornev_r_s.png");	const int background_art = LoadGraph("picture/backgroundart.png");
+	const int TORNEV_SUPER_GRAPH = LoadGraph("picture/tornev_r_s.png");
+	const int background_art = LoadGraph("picture/backgroundart.png");
 	const int star_graph = LoadGraph("picture/star.png");
 	const int tokage_graph = LoadGraph("picture/tokage.png");
 	const int chip_0 = LoadGraph("picture/32_0.png");
@@ -49,10 +50,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	int game_now_time;
 	int now_time = 0;
 
-	//int tokage_time;
-
-	bool super_mode = false;
-
+	tornev.transformNormal(TORNEV_GRAPH);
 
 	//マップチップ
 	//int  mapx = GetRand(10);
@@ -71,15 +69,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			maps[i][j] = GetRand(3);
 		}
 	}
-
-	enum TornevStatus
-	{
-		Wait,
-		Walk
-	};
-
-	TornevStatus player_state = Wait;
-
 
 	//int maps[5][11] =
 	//{
@@ -113,16 +102,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		key_old = key_info;
 
 		//トルネフがスーパー状態か否か
-		tornev.transformNormal(TORNEV_GRAPH); // 右向きトルネフ画像をロードする変数
-
-		if (super_mode == true) {
+		if (tornev.getMode() == TornevMode::Super) {
 			super_time = GetNowCount() - super_start_time;
 			if (super_time < 10000) {
 				tornev.setSpeed(10);
 				tornev.transformSuper(TORNEV_SUPER_GRAPH);
 			} else if (super_time >= super_max_time) {
 				star.setFlag(true);
-				super_mode = false;
+				tornev.transformNormal(TORNEV_GRAPH);
 				StopSoundMem(super_BGM);
 			}
 		}
@@ -173,7 +160,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 			if (collisionDetection.itemColision(star) == true) {
 				star.setFlag(false);
-				super_mode = true;
+				tornev.transformSuper(TORNEV_SUPER_GRAPH);
 				super_start_time = GetNowCount();
 				//BGM再生
 				StopSoundMem(normal_bgm);
@@ -187,12 +174,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		if (tokage.getFlag() == true)
 			tokage.moveBackwards();
 
-		if (tokage.getIsDead() == false && super_mode == false && collisionDetection.enemyColision(tokage) == true) {
+		if (tokage.getIsDead() == false && tornev.getMode() == false && collisionDetection.enemyColision(tokage) == true) {
 			tornev.setIsDead(true); // トルネフ死亡フラグオン
 		}
 		if (
 			(tokage.getIsDead() == false && collisionDetection.tornevAttack(tokage) == true) ||						// トカゲが生きてて、踏んだら
-			(tokage.getIsDead() == false && super_mode == true && collisionDetection.enemyColision(tokage) == true) // トカゲが生きてて、スーパーモードで、当たったら
+			(tokage.getIsDead() == false && tornev.getMode() == true && collisionDetection.enemyColision(tokage) == true) // トカゲが生きてて、スーパーモードで、当たったら
 			) {
 			tokage.setIsDead(true); // トカゲ死亡フラグオン
 		}
@@ -201,7 +188,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 		//BGM
-		if (CheckSoundMem(normal_bgm) != 1 && super_mode == false) {
+		if (CheckSoundMem(normal_bgm) != 1 && tornev.getMode() == false) {
 			PlaySoundMem(normal_bgm, DX_PLAYTYPE_LOOP);
 		}
 			
