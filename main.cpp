@@ -16,11 +16,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 	}
 
 	//画像ロード
-	const int tornev_right_normal = LoadGraph("picture/tornev_r.png");
-	const int tornev_left_normal = LoadGraph("picture/tornev_l.png");
-	const int tornev_right_super = LoadGraph("picture/tornev_r_s.png");
-	const int tornev_left_super = LoadGraph("picture/tornev_l_s.png");
-	const int background_art = LoadGraph("picture/backgroundart.png");
+	const int TORNEV_GRAPH = LoadGraph("picture/tornev_r.png");
+	const int TORNEV_SUPER_GRAPH = LoadGraph("picture/tornev_r_s.png");	const int background_art = LoadGraph("picture/backgroundart.png");
 	const int star_graph = LoadGraph("picture/star.png");
 	const int tokage_graph = LoadGraph("picture/tokage.png");
 	const int chip_0 = LoadGraph("picture/32_0.png");
@@ -36,12 +33,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//変数たち
 	Tornev tornev;
-	tornev.set(150, 300, 5, true, -10, 5, 0, false, false, false);
+	tornev.set(150, 300, 5, true, TORNEV_GRAPH, -10, 5, 0, false, false, false);
 	Ui ui = { 0,0 };
 	ItemObject star;
-	star.set(600, 200, 8, true, true);
+	star.set(600, 200, 8, true, star_graph, true);
 	Enemy tokage;
-	tokage.set(900, 300, 7, false, false, false, tokage_graph);
+	tokage.set(900, 300, 7, false, tokage_graph, false, false);
 	BGA bg = { 0,0 };
 
 	int super_start_time;
@@ -116,15 +113,13 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		key_old = key_info;
 
 		//トルネフがスーパー状態か否か
-		int tornev_right_now = tornev_right_normal; //右向きトルネフ画像をロードする変数
-		int tornev_left_now = tornev_left_normal; //左向きトルネフ画像をロードする変数
+		tornev.transformNormal(TORNEV_GRAPH); // 右向きトルネフ画像をロードする変数
 
 		if (super_mode == true) {
 			super_time = GetNowCount() - super_start_time;
 			if (super_time < 10000) {
 				tornev.setSpeed(10);
-				tornev_right_now = tornev_right_super;
-				tornev_left_now = tornev_left_super;
+				tornev.transformSuper(TORNEV_SUPER_GRAPH);
 			} else if (super_time >= super_max_time) {
 				star.setFlag(true);
 				super_mode = false;
@@ -242,15 +237,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		//トルネフ描画
 		if (tornev.getDirection() == true) {
-			DrawGraph(tornev.getX(), tornev.getY(), tornev_right_now, TRUE);
+			DrawGraph(tornev.getX(), tornev.getY(), tornev.getGraph(), TRUE);
 		} else if (tornev.getDirection() == false) {
-			DrawGraph(tornev.getX(), tornev.getY(), tornev_left_now, TRUE);
+			DrawTurnGraph(tornev.getX(), tornev.getY(), tornev.getGraph(), TRUE);
 		}
 
 		if (star.getFlag() == true)
-			DrawGraph(bg.x + star.getX(), star.getY(), star_graph, TRUE);
+			DrawGraph(bg.x + star.getX(), star.getY(), star.getGraph(), TRUE);
 		if (tokage.getFlag() == true)
-			DrawGraph(bg.x + tokage.getX(), tokage.getY(), tokage_graph, TRUE);
+			DrawGraph(bg.x + tokage.getX(), tokage.getY(), tokage.getGraph(), TRUE);
 
 		if (debug_flag == true)
 			DrawGraph(ui.x, ui.y, chip_debug, TRUE);
@@ -265,7 +260,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	}
 
-	DxLib_End();               // ＤＸライブラリ使用の終了処理
+	DxLib_End(); // DXライブラリ使用の終了処理
 
-	return 0;              // ソフトの終了
+	return 0;    // ソフトの終了
 }

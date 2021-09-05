@@ -9,7 +9,6 @@
 #include "ItemObject.h"
 #include "Enemy.h"
 
-
 class CollisionDetection
 {
 private:
@@ -19,9 +18,9 @@ private:
 	Enemy m_enemy;
 
 public:
-	CollisionDetection::CollisionDetection(Tornev tornev, BGA bg);
-	bool CollisionDetection::itemColision(ItemObject item);    //メンバ関数の定義
-	bool CollisionDetection::enemyColision(Enemy enemy);
-	bool CollisionDetection::tornevAttack(Enemy enemy);
+	CollisionDetection(Tornev tornev, BGA bg);
+	bool itemColision(ItemObject item);
+	bool enemyColision(Enemy enemy);
+	bool tornevAttack(Enemy enemy);
 };
 #endif

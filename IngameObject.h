@@ -7,19 +7,22 @@ protected:
 	int y;
 	int speed;
 	bool direction;
+	int graph;
 
 public:
-	void IngameObject::moveAdvance();
-	void IngameObject::moveBackwards();
-	void IngameObject::set(int x, int y, int speed, bool direction);
+	void moveAdvance();
+	void moveBackwards();
+	void set(int x, int y, int speed, bool direction);
 
-	void IngameObject::setX(int x);
-	void IngameObject::setY(int y);
-	void IngameObject::setSpeed(int speed);
-	void IngameObject::setDirection(bool direction);
+	void setX(int x);
+	void setY(int y);
+	void setSpeed(int speed);
+	void setDirection(bool direction);
+	void setGraph(int graph);
 
-	int IngameObject::getX();
-	int IngameObject::getY();
-	int IngameObject::getSpeed();
-	bool IngameObject::getDirection();
+	int getX();
+	int getY();
+	int getSpeed();
+	bool getDirection();
+	int getGraph();
 };

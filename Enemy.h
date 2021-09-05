@@ -6,16 +6,13 @@ class Enemy :
 {
 	bool flag;
 	bool is_dead;
-	int graph;
 
 public:
-	void set(int x, int y, int speed, bool direction, bool flag, bool is_dead, int graph);
+	void set(int x, int y, int speed, bool direction, int graph, bool flag, bool is_dead);
 
 	void setFlag(int flag);
 	void setIsDead(bool is_dead);
-	void setGraph(int graph);
 
 	bool getFlag();
 	bool getIsDead();
-	int getGraph();
 };

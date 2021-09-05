@@ -18,15 +18,30 @@ void Tornev::jump(int key_trg)
 
 
 
+void Tornev::transformSuper(int tornev_super_graph)
+{
+	this->graph = tornev_super_graph;
+}
+
+
+
+void Tornev::transformNormal(int tornev_graph)
+{
+	this->graph = tornev_graph;
+}
+
+
+
 /*
 * setter
 */
-void Tornev::set(int x, int y, int speed, bool direction, int y_prev, int y_temp, int jump_y, bool jump_flag_1, bool jump_flag_2, bool is_dead)
+void Tornev::set(int x, int y, int speed, bool direction, int tornev_graph, int y_prev, int y_temp, int jump_y, bool jump_flag_1, bool jump_flag_2, bool is_dead)
 {
 	this->x = x;
 	this->y = y;
 	this->speed = speed;
 	this->direction = direction;
+	this->graph = tornev_graph;
 
 	this->y_prev = y_prev;
 	this->y_temp = y_temp;
