@@ -7,7 +7,7 @@ class ItemObject :
 	private:
 		bool flag;
 	public:
-		void ItemObject::set(int x, int y, int speed, bool direction, bool flag);
-		void ItemObject::setFlag(bool flag);
-		bool ItemObject::getFlag();
+		void set(int x, int y, int speed, bool direction, int graph, bool flag);
+		void setFlag(bool flag);
+		bool getFlag();
 };
