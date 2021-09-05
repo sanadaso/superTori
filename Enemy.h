@@ -5,7 +5,6 @@ class Enemy :
     public IngameObject
 {
 	bool flag;
-	bool is_dead;
 
 public:
 	void set(int x, int y, int speed, bool direction, int graph, bool flag, bool is_dead);

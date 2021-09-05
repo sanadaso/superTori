@@ -162,6 +162,7 @@
     <ClCompile Include="IngameObject.cpp" />
     <ClCompile Include="ItemObject.cpp" />
     <ClCompile Include="KeyInput.cpp" />
+    <ClCompile Include="Lizard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="Tornev.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="IngameObject.h" />
     <ClInclude Include="ItemObject.h" />
     <ClInclude Include="KeyInput.h" />
+    <ClInclude Include="Lizard.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="Tornev.h" />

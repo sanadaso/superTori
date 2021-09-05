@@ -90,14 +90,6 @@ void Tornev::setJumpFlag2(int jump_flag_2)
 
 
 
-void Tornev::setIsDead(int is_dead)
-{
-	this->is_dead = is_dead;
-
-}
-
-
-
 /*
 * getter
 */
@@ -132,13 +124,6 @@ bool Tornev::getJumpFlag1()
 bool Tornev::getJumpFlag2()
 {
 	return this->jump_flag_2;
-}
-
-
-
-bool Tornev::getIsDead()
-{
-	return this->is_dead;
 }
 
 

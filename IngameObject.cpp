@@ -20,6 +20,13 @@ void IngameObject::moveBackwards()
 
 
 
+void IngameObject::die()
+{
+	this->setIsDead(true);
+}
+
+
+
 /*
 * setter
 */
@@ -68,6 +75,14 @@ void IngameObject::setGraph(int graph)
 
 
 
+void IngameObject::setIsDead(int is_dead)
+{
+	this->is_dead = is_dead;
+
+}
+
+
+
 /*
 * getter
 */
@@ -101,4 +116,11 @@ bool IngameObject::getDirection()
 int IngameObject::getGraph()
 {
 	return this->graph;
+}
+
+
+
+bool IngameObject::getIsDead()
+{
+	return this->is_dead;
 }
