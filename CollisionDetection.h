@@ -2,8 +2,6 @@
 #define __COLLISION_DETECTION_H__
 
 #pragma once
-#include <iostream>
-#include <string.h>
 #include "main.h"
 #include "Tornev.h"
 #include "ItemObject.h"
