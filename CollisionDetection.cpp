@@ -1,7 +1,4 @@
-﻿#include <iostream>
-#include <string.h>
-
-#include "CollisionDetection.h"
+﻿#include "CollisionDetection.h"
 
 CollisionDetection::CollisionDetection(Tornev tornev, BGA bg)
 {
