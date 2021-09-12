@@ -159,6 +159,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="IngameObject.cpp" />
     <ClCompile Include="ItemObject.cpp" />
     <ClCompile Include="KeyInput.cpp" />
@@ -170,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="IngameObject.h" />
     <ClInclude Include="ItemObject.h" />
     <ClInclude Include="KeyInput.h" />
